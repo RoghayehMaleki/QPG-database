@@ -1,0 +1,640 @@
+ # rank 7S - GAP code
+##############################
+
+IntegralMultiplicitiesCheck7:=function(f,K) 
+local F,C1,T,m1,m2,m3,m4,m5,m6,c,r,s,t,u,v,w,t1,f0,F1,d,n,k1,k2,k3,k4,k5,k6,x,i;
+
+F:=Factors(f); 
+k1:=K[1]; k2:=K[2]; k3:=K[3]; k4:=K[4]; k5:=K[5]; k6:=K[6];
+n:=1+Sum(K); 
+T:=false; 
+x:=Indeterminate(Rationals,"x");
+
+d:=Discriminant(f); 
+if not(d=0) then 
+
+if Length(F)=2 then 
+c:=CoefficientsOfUnivariatePolynomial(F[2])[6]; 
+if c=1 then m1:=k1; T:=true;  
+
+  if T=true then 
+    d:=Discriminant(f); 
+    F1:=(n^7*k1*k2*k3*k4*k5*k6)/(m1^6); 
+    if not(IsInt(d/F1)) or not(IsSquareInt(d/F1)) then 
+       T:=false; 
+    fi; 
+  fi;  
+
+  if T=true then  
+    f0:=(x-k1)*F[2]^m1;
+    C1:=CompanionMat(f0);
+    for i in [1..6] do 
+     t1:=TraceMat(C1^i)/n; 
+     if not(IsInt(t1)) then T:=false; fi; 
+    od;
+  fi;
+
+fi;
+fi; 
+
+if Length(F)=3 and Degree(F[3])=5 then 
+r:=RootsOfUPol(F[2])[1]; 
+c:=CoefficientsOfUnivariatePolynomial(F[3])[5];
+for m1 in [1..n-2] do 
+m2:=(n-m1-1)/5; 
+if m2>0 and IsInt(m2) and k1+m1*r-m2*c=0 then 
+T:=true; 
+
+  if T=true then 
+    d:=Discriminant(f); 
+    F1:=(n^7*k1*k2*k3*k4*k5*k6)/(m1*m2^5); 
+    if not(IsInt(d/F1)) or not(IsSquareInt(d/F1)) then 
+       T:=false; 
+    fi; 
+  fi; 
+  if T=true then 
+    f0:=(x-k1)*F[2]^m1*F[3]^m2;
+    C1:=CompanionMat(f0);
+    for i in [1..6] do 
+      t1:=TraceMat(C1^i)/n; 
+      if not(IsInt(t1)) then T:=false; fi; 
+    od; 
+  fi;
+
+if T=true then break; fi; 
+fi; 
+od; 
+fi; 
+
+if Length(F)=3 and Degree(F[3])=4 then 
+r:=CoefficientsOfUnivariatePolynomial(F[2])[2]; 
+c:=CoefficientsOfUnivariatePolynomial(F[3])[4]; 
+for m1 in [1..n-2] do 
+m2:=(n-2*m1-1)/4; 
+if m2>0 and IsInt(m2) and k1-m1*r-m2*c=0 then 
+T:=true;  
+
+  if T=true then 
+    d:=Discriminant(f); 
+    F1:=(n^7*k1*k2*k3*k4*k5*k6)/(m1^2*m2^4); 
+    if not(IsInt(d/F1)) or not(IsSquareInt(d/F1)) then 
+       T:=false; 
+    fi; 
+  fi; 
+
+  if T=true then 
+    f0:=(x-k1)*F[2]^m1*F[3]^m2;
+    C1:=CompanionMat(f0);
+    for i in [1..6] do 
+      t1:=TraceMat(C1^i)/n; 
+      if not(IsInt(t1)) then T:=false; fi; 
+    od;
+  fi; 
+
+if T=true then break; fi; 
+fi; 
+od; 
+fi; 
+
+if Length(F)=3 and Degree(F[3])=3 then 
+r:=CoefficientsOfUnivariatePolynomial(F[2])[3]; 
+c:=CoefficientsOfUnivariatePolynomial(F[3])[3]; 
+for m1 in [1..n-2] do 
+m2:=(n-3*m1-1)/3; 
+if m2>0 and IsInt(m2) and k1-m1*r-m2*c=0 then 
+T:=true;  
+
+  if T=true then 
+    d:=Discriminant(f); 
+    F1:=(n^7*k1*k2*k3*k4*k5*k6)/(m1^3*m2^3); 
+    if not(IsInt(d/F1)) or not(IsSquareInt(d/F1)) then 
+       T:=false; 
+    fi; 
+  fi; 
+
+  if T=true then 
+    f0:=(x-k1)*F[2]^m1*F[3]^m2;
+    C1:=CompanionMat(f0);
+    for i in [1..6] do 
+      t1:=TraceMat(C1^i)/n; 
+      if not(IsInt(t1)) then T:=false; fi; 
+    od;
+  fi; 
+
+if T=true then break; fi; 
+fi; 
+od; 
+fi; 
+
+if Length(F)=4 and Degree(F[4])=4 then 
+r:=RootsOfUPol(F[2])[1]; 
+s:=RootsOfUPol(F[3])[1]; 
+c:=CoefficientsOfUnivariatePolynomial(F[4])[4]; 
+for m1 in [1..n-3] do 
+for m2 in [1..n-2-m1] do 
+m3:=(n-m1-m2-1)/4; 
+if m3>0 and IsInt(m3) and k1+m1*r+m2*s-m3*c=0 then 
+T:=true; 
+
+  if T=true then 
+    d:=Discriminant(f); 
+    F1:=(n^7*k1*k2*k3*k4*k5*k6)/(m1*m2*m3^4); 
+    if not(IsInt(d/F1)) or not(IsSquareInt(d/F1)) then 
+       T:=false; 
+    fi; 
+  fi; 
+
+  if T=true then 
+    f0:=(x-k1)*F[2]^m1*F[3]^m2*F[4]^m3;
+    C1:=CompanionMat(f0);
+    for i in [1..6] do 
+      t1:=TraceMat(C1^i)/n; 
+      if not(IsInt(t1)) then T:=false; fi; 
+    od; 
+  fi; 
+
+fi;
+if T=true then break; fi;  
+od; 
+if T=true then break; fi; 
+od; 
+fi; 
+
+if Length(F)=4 and Degree(F[4])=3 then 
+r:=RootsOfUPol(F[2])[1]; 
+s:=CoefficientsOfUnivariatePolynomial(F[3])[2];
+c:=CoefficientsOfUnivariatePolynomial(F[4])[3]; 
+for m1 in [1..n-3] do 
+for m2 in [1..n-2-m1] do 
+m3:=(n-m1-2*m2-1)/3; 
+if m3>0 and IsInt(m3) and k1+m1*r-m2*s-m3*c=0 then 
+T:=true; 
+
+  if T=true then 
+    d:=Discriminant(f); 
+    F1:=(n^7*k1*k2*k3*k4*k5*k6)/(m1*m2^2*m3^3); 
+    if not(IsInt(d/F1)) or not(IsSquareInt(d/F1)) then 
+       T:=false; 
+    fi; 
+  fi; 
+
+  if T=true then 
+    f0:=(x-k1)*F[2]^m1*F[3]^m2*F[4]^m3;
+    C1:=CompanionMat(f0);
+    for i in [1..6] do 
+      t1:=TraceMat(C1^i)/n; 
+      if not(IsInt(t1)) then T:=false; fi; 
+    od; 
+  fi; 
+
+if T=true then break; fi; 
+fi; 
+od; 
+if T=true then break; fi; 
+od; 
+fi; 
+
+if Length(F)=4 and Degree(F[4])=2 then 
+r:=CoefficientsOfUnivariatePolynomial(F[2])[2]; 
+s:=CoefficientsOfUnivariatePolynomial(F[3])[2]; 
+c:=CoefficientsOfUnivariatePolynomial(F[4])[2]; 
+for m1 in [1..n-3] do 
+for m2 in [1..n-2-m1] do 
+m3:=(n-2*m1-2*m2-1)/2; 
+if m3>0 and IsInt(m3) and k1-m1*r-m2*s-m3*c=0 then 
+T:=true; 
+
+  if T=true then 
+    d:=Discriminant(f); 
+    F1:=(n^7*k1*k2*k3*k4*k5*k6)/(m1^2*m2^2*m3^2); 
+    if not(IsInt(d/F1)) or not(IsSquareInt(d/F1)) then 
+       T:=false; 
+    fi; 
+  fi; 
+
+  if T=true then 
+    f0:=(x-k1)*F[2]^m1*F[3]^m2*F[4]^m3;
+    C1:=CompanionMat(f0);
+    for i in [1..6] do 
+      t1:=TraceMat(C1^i)/n; 
+      if not(IsInt(t1)) then T:=false; fi;
+    od;
+  fi;
+
+if T=true then break; fi; 
+fi; 
+od; 
+if T=true then break; fi; 
+od; 
+fi; 
+
+if Length(F)=5 and Degree(F[5])=3 then 
+r:=RootsOfUPol(F[2])[1]; 
+s:=RootsOfUPol(F[3])[1]; 
+t:=RootsOfUPol(F[4])[1]; 
+c:=CoefficientsOfUnivariatePolynomial(F[5])[3]; 
+for m1 in [1..n-4] do 
+for m2 in [1..n-m1-3] do 
+for m3 in [1..n-m1-m2-2] do 
+m4:=(n-1-m1-m2-m3)/3; 
+if m4>0 and IsInt(m4) and k1+m1*r+m2*s+m3*t-m4*c=0 then 
+T:=true; 
+
+  if T=true then 
+    d:=Discriminant(f); 
+    F1:=(n^7*k1*k2*k3*k4*k5*k6)/(m1*m2*m3*m4^3); 
+    if not(IsInt(d/F1)) or not(IsSquareInt(d/F1)) then 
+       T:=false; 
+    fi; 
+  fi; 
+
+  if T=true then 
+    f0:=(x-k1)*F[2]^m1*F[3]^m2*F[4]^m3*F[5]^m4;
+    C1:=CompanionMat(f0);
+    for i in [1..6] do 
+      t1:=TraceMat(C1^i)/n; 
+      if not(IsInt(t1)) then T:=false; fi;
+    od;
+  fi; 
+fi;
+if T=true then break; fi; 
+od; 
+if T=true then break; fi; 
+od; 
+if T=true then break; fi; 
+od; 
+fi; 
+
+if Length(F)=5 and Degree(F[5])=2 then 
+r:=RootsOfUPol(F[2])[1]; 
+s:=RootsOfUPol(F[3])[1]; 
+t:=CoefficientsOfUnivariatePolynomial(F[4])[2];
+c:=CoefficientsOfUnivariatePolynomial(F[5])[2]; 
+for m1 in [1..n-4] do 
+for m2 in [1..n-m1-3] do 
+for m3 in [1..n-m1-m2-2] do 
+m4:=(n-1-m1-m2-2*m3)/2; 
+if m4>0 and IsInt(m4) and k1+m1*r+m2*s-m3*t-m4*c=0 then 
+T:=true; 
+
+  if T=true then 
+    d:=Discriminant(f); 
+    F1:=(n^7*k1*k2*k3*k4*k5*k6)/(m1*m2*m3^2*m4^2); 
+    if not(IsInt(d/F1)) or not(IsSquareInt(d/F1)) then 
+       T:=false; 
+    fi; 
+  fi; 
+
+  if T=true then 
+    f0:=(x-k1)*F[2]^m1*F[3]^m2*F[4]^m3*F[5]^m4;
+    C1:=CompanionMat(f0);
+    for i in [1..6] do 
+      t1:=TraceMat(C1^i)/n; 
+      if not(IsInt(t1)) then T:=false; fi;
+    od;
+  fi; 
+ 
+fi;
+if T=true then break; fi;  
+od; 
+if T=true then break; fi; 
+od; 
+if T=true then break; fi; 
+od; 
+fi; 
+
+if Length(F)=6 then 
+r:=RootsOfUPol(F[2])[1]; 
+s:=RootsOfUPol(F[3])[1]; 
+t:=RootsOfUPol(F[4])[1]; 
+u:=RootsOfUPol(F[5])[1]; 
+v:=CoefficientsOfUnivariatePolynomial(F[6])[2]; 
+for m1 in [1..n-5] do 
+for m2 in [1..n-m1-4] do 
+for m3 in [1..n-m1-m2-3] do 
+for m4 in [1..n-m1-m2-m3-2] do 
+m5:=(n-m1-m2-m3-m4-1)/2; 
+if m5>0 and IsInt(m5) and k1+m1*r+m2*s+m3*t+m4*u-m5*v=0 then 
+T:=true; 
+
+  if T=true then 
+    d:=Discriminant(f); 
+    F1:=(n^7*k1*k2*k3*k4*k5*k6)/(m1*m2*m3*m4*m5^2); 
+    if not(IsInt(d/F1)) or not(IsSquareInt(d/F1)) then 
+       T:=false; 
+    fi; 
+  fi; 
+
+  if T=true then 
+    f0:=(x-k1)*F[2]^m1*F[3]^m2*F[4]^m3*F[5]^m4*F[6]^m5;
+    C1:=CompanionMat(f0);
+    for i in [1..6] do 
+      t1:=TraceMat(C1^i)/n; 
+      if not(IsInt(t1)) then T:=false; fi; 
+    od;
+  fi;
+ 
+if T=true then break; fi; 
+fi; 
+od; 
+if T=true then break; fi; 
+od; 
+if T=true then break; fi; 
+od; 
+if T=true then break; fi; 
+od; 
+fi; 
+
+
+if Length(F)=7 then 
+r:=RootsOfUPol(F[2])[1]; 
+s:=RootsOfUPol(F[3])[1]; 
+t:=RootsOfUPol(F[4])[1]; 
+u:=RootsOfUPol(F[5])[1]; 
+v:=RootsOfUPol(F[6])[1]; 
+w:=RootsOfUPol(F[7])[1];
+for m1 in [1..n-6] do 
+for m2 in [1..n-m1-5] do 
+for m3 in [1..n-m1-m2-4] do 
+for m4 in [1..n-m1-m2-m3-3] do 
+for m5 in [1..n-m1-m2-m3-m4-2] do 
+m6:=(n-m1-m2-m3-m4-m5-1); 
+if m6>0 and k1+m1*r+m2*s+m3*t+m4*u+m5*v+m6*w=0 then 
+T:=true; 
+
+  if T=true then 
+    d:=Discriminant(f); 
+    F1:=(n^7*k1*k2*k3*k4*k5*k6)/(m1*m2*m3*m4*m5*m6); 
+    if not(IsInt(d/F1)) or not(IsSquareInt(d/F1)) then 
+       T:=false; 
+    fi; 
+  fi; 
+
+  if T=true then 
+    f0:=(x-k1)*F[2]^m1*F[3]^m2*F[4]^m3*F[5]^m4*F[6]^m5*F[7]^m6;
+    C1:=CompanionMat(f0);
+    for i in [1..6] do 
+      t1:=TraceMat(C1^i)/n; 
+      if not(IsInt(t1)) then T:=false; fi; 
+    od;
+  fi;
+
+fi;
+if T=true then break; fi;  
+od; 
+if T=true then break; fi; 
+od; 
+if T=true then break; fi; 
+od; 
+if T=true then break; fi; 
+od; 
+if T=true then break; fi; 
+od; 
+fi; 
+
+fi;
+
+return T; 
+end; 
+
+#########################################
+IsSITA:=function(b)
+local a,d,r,t,D,i,j,k,t1;
+
+r:=Length(b[1][1]);
+t:=true; 
+for i in [1..r] do 
+for j in [1..r] do for k in [1..r] do 
+if b[i][j][k]<0 or not(IsInt(b[i][j][k])) then t:=false; fi; 
+od; od; od; 
+
+if t=true then 
+a:=Algebra(Rationals,b); 
+d:=Basis(a,b);
+if d=fail then t:=false; else 
+t1:=true; 
+D:=[]; 
+for i in [1..r] do D[i]:=[]; for j in [1..r] do 
+D[i][j]:=Coefficients(d,d[i]*d[j]); od; 
+if not(TransposedMat(D[i])=d[i]) then t1:=false; fi; 
+od;
+t:=t1; 
+fi;
+fi;
+
+return t; 
+end;  
+########################################
+
+#x:=[]; for i in [1..30] do x[i]:=Indeterminate(Rationals,i); od; 
+#V3:=CAlgRank6SFromList2(x);
+
+#A:=[];
+#A1:=[];
+#A2:=[];
+g1:=PermutationMat((4,5,6),6);
+g2:=PermutationMat((4,5),6); 
+G:=Group([g1,g2]); 
+
+L := [];;
+for N in [45..250] do Print("                                       \n \n N=",N,"\n \n"); 
+
+#N:=250;
+
+for k1 in [12] do A2:=[]; M2:=k1^2-k1; M2:=Minimum(M2,N-k1-5); indexing_var :=0;
+for k2 in [1..M2] do M3:=Maximum(M2,k1*k2); M3:=Maximum(M3,k2^2-k2); M3:=Minimum(M3,N-k1-k2-4);
+for k3 in [1..M3] do M4:=Maximum(M3,k1*k3); M4:=Minimum(M4,k2*k3); M4:=Maximum(M4,k3^2-k3); M4:=Minimum(M4,N-k1-k2-k3-3);
+for k4 in [k3..M4] do M5:=Maximum(M4,k1*k4); M5:=Maximum(M5,k2*k4); M5:=Maximum(M5,k3*k4); M5:=Maximum(M5,k4^2-k4);  
+M5:=Minimum(M5,N-k1-k2-k3-k4-2);  
+for k5 in [k4..M5] do M6:=Maximum(M5,k1*k5); M6:=Maximum(M6,k2*k5); M6:=Maximum(M6,k3*k5); M6:=Maximum(M6,k4*k5); M6:=Maximum(M6,k5^2-k5); 
+M6:=Minimum(M6,N-k1-k2-k3-k4-k5-1);  
+for k6 in [k5..M6] do n:=1+k1+k2+k3+k4+k5+k6; Print(n,[k1,k2,k3,k4,k5,k6],"\r"); if n<251 and n>34 then 
+
+
+for p112 in Reversed([1..k1-1]) do 
+if p112*k2/k1 in [1..k1-1] then
+  p121:=p112*k2/k1;
+
+for p113 in Reversed([0..k1]) do 
+if p113*k3/k1 in [0..k1-1-p121] then
+  p131:=p113*k3/k1;
+for p123 in [0..k1-p113] do
+if p123*k3/k2 in [0..k1-p112] then
+  p132:=p123*k3/k2;
+
+for p114 in Reversed([0..k1]) do 
+if p114*k4/k1 in [0..k1-1-p121-p131] then
+  p141:=p114*k4/k1;
+for p124 in [0..k1-p114] do
+if p124*k4/k2 in [0..k1-p112-p132] then
+  p142:=p124*k4/k2;
+for p134 in [0..k1-p114-p124] do
+if p134*k4/k2 in [0..k1-p113-p123] then
+  p143:=p134*k4/k2;
+
+for p115 in Reversed([0..k1]) do 
+if p115*k5/k1 in [0..k1-1-p121-p131-p141] then
+  p151:=p115*k5/k1; 
+for p125 in [0..k1-p115] do
+if p125*k5/k2 in [0..k1-p112-p132-p142] then
+  p152:=p125*k5/k2; 
+for p135 in [0..k1-p115-p125] do
+if p135*k5/k3 in [0..k1-p113-p123-p143] then
+  p153:=p135*k5/k3; 
+for p145 in [0..k1-p115-p125-p135] do
+if p145*k5/k4 in [0..k1-p114-p124-p134] then
+  p154:=p145*k5/k4; 
+
+for p116 in Reversed([0..k1]) do 
+if p116*k6/k1 in [0..k1-1-p121-p131-p141-p151] then 
+  p161:=p116*k6/k1; 
+for p126 in [0..k1-p116] do 
+  if p126*k6/k1 in [k1-p112-p132-p142-p152] then 
+  p162:=p126*k6/k2; 
+for p136 in [0..k1-p116-p126] do 
+  if p136*k6/k3 in [k1-p113-p123-p143-p153] then 
+  p163:=p136*k6/k3; 
+for p146 in [0..k1-p116-p126-p136] do 
+  if p146*k6/k4 in [k1-p114-p124-p134-p154] then 
+  p164:=p146*k6/k4; 
+for p156 in [0..k1-p116-p126-p136-p146] do 
+  if p156*k6/k5 in [k1-p115-p125-p135-p145] then 
+  p165:=p156*k6/k5; 
+
+  p111:=k1-1-p121-p131-p141-p151-p161; if p111>-1 then
+  p122:=k1-p112-p132-p142-p152-p162; if p122>-1 then
+  p133:=k1-p113-p123-p143-p153-p163; if p133>-1 then
+  p144:=k1-p114-p124-p134-p154-p164; if p144>-1 then
+  p155:=k1-p115-p125-p135-p145-p165; if p155>-1 then
+  p166:=k1-p116-p126-p136-p146-p156; if p166>-1 then 
+
+C:=[[0,k1,0,0,0,0,0],
+[1,p111,p121,p131,p141,p151,p161],
+[0,p112,p122,p132,p142,p152,p162],
+[0,p113,p123,p133,p143,p153,p163],
+[0,p114,p124,p134,p144,p154,p164],
+[0,p115,p125,p135,p145,p155,p165],
+[0,p116,p126,p136,p146,p156,p166]];
+
+t00:=0; 
+#for g in G do if C^g in A2 then t00:=1; break; fi; od; 
+if t00=0 then #Add(A2,C); 
+
+b1:=C;
+#Print(C,"\n");
+
+P:=MinimalPolynomial(C);
+if Degree(P)=7 then  
+Print(n,[k1,k2,k3,k4,k5,k6],"\r");
+
+B:=[(C^0)[1],(C^1)[1],(C^2)[1],(C^3)[1],(C^4)[1],(C^5)[1],(C^6)[1]];
+V:=VectorSpace(Rationals,B); 
+if Dimension(V)=7 then 
+B:=Basis(V,B);
+b:=[]; 
+K:=[[1,0,0,0,0,0,0],[0,k1,0,0,0,0,0],[0,0,k2,0,0,0,0],
+[0,0,0,k3,0,0,0],[0,0,0,0,k4,0,0],[0,0,0,0,0,k5,0],[0,0,0,0,0,0,k6]];
+for i in [1..7] do 
+  c:=Coefficients(B,K[i]);
+  A:=0*C; 
+  for j in [1..7] do 
+    A:=A+c[j]*C^(j-1); 
+  od; 
+b[i]:=A; 
+od; 
+
+#t:=0; for i in [1..7] do for j in [1..7] do for k in [1..7] do 
+#if b[i][j][k]<0 or not(IsInt(b[i][j][k])) then t:=1; fi; 
+#od; od; od; 
+#if t=0 then 
+#Print([k1,k2,k3,k4,k5,k6],[p112,p113,p114,p115,p116],"\n",b,"\n"); 
+#fi; 
+
+if IsSITA(b) then  
+Print(n,[k1,k2,k3,k4,k5,k6],[p112,p113,p114,p115,p116,p123,p124,p125,p126,p134,p135,p136,p145,p146,p156],"\r");
+
+
+if IntegralMultiplicitiesCheck7(P,[k1,k2,k3,k4,k5,k6]) then 
+Print(n,[k1,k2,k3,k4,k5,k6],[p112,p113,p114,p115,p116,p123,p124,p125,p126,p134,p135,p136,p145,p146,p156],"\n"); 
+
+
+
+indexing_var := indexing_var +1;
+n:=1+k1+k2+k3+k4+k5+k6;
+Print([k1,k2,k3,k4,k5,k6],[p112,p113,p114,p115,p123,p124,p125,p134,p135,p136,p145,p146,p156],"\n"); 
+PrintTo(StringFormatted("data{1}-{2}-{3}.txt",k1,n,indexing_var)," ");
+AppendTo(StringFormatted("data{1}-{2}-{3}.txt",k1,n,indexing_var),"degree:",k1,"\n order:",n,"\n",[k1,k2,k3,k4,k5,k6],[p112,p113,p114,p115,p123,p124,p125,p134,p135,p136,p145,p146,p156],"\n\n");   
+
+Print(Factors(P));
+f:=Factors(P)[Length(Factors(P))];
+AppendTo(StringFormatted("data{1}-{2}-{3}.txt",k1,n,indexing_var),"minimal polynomial:",Factors(P));
+if Degree(f)>1 then 
+Print(GaloisType(Factors(P)[Length(Factors(P))]),"        \n");
+AppendTo(StringFormatted("data{1}-{2}-{3}.txt",k1,n,indexing_var),"\n Galois type:",GaloisType(f),"\n\n minimal polynomial of other basis elements:\n ");
+else Print("           \n"); fi; 
+for i in [3..7] do 
+Print(Factors(MinimalPolynomial(b[i])),"\n");
+AppendTo(StringFormatted("data{1}-{2}-{3}.txt",k1,n,indexing_var),MinimalPolynomial(b[i]),"\n");
+od; 
+Print(b,"\n");
+ AppendTo(StringFormatted("data{1}-{2}-{3}.txt",k1,n,indexing_var),"\n SITA:\n",b,"\n\n");
+
+name := StringFormatted("data{1}-{2}-{3}.txt",k1,n,indexing_var);
+Add(L,[k1,n,[k1,k2,k3,k4,k5,k6],Factors(P),StringFormatted("{}",name)]);
+
+if IsPpolynomialTA(b) then Print("P-polynomial "); AppendTo(StringFormatted("data{1}-{2}-{3}.txt",k1,n,indexing_var),"\n P-polynomial\n","\n\n"); fi; 
+if IsQpolynomialTA(b) then Print("Q-polynomial "); AppendTo(StringFormatted("data{1}-{2}-{3}.txt",k1,n,indexing_var),"\n Q-polynomial\n","\n\n"); fi; 
+
+
+
+#if IsPpolynomialTA(b) then Print("P-polynomial "); fi; 
+#if IsQpolynomialTA(b) then Print("Q-polynomial "); fi; 
+Print(" \n \n"); 
+
+fi;
+fi;
+fi;
+fi;
+fi;
+fi; fi; fi; fi; fi; fi;
+
+fi; od; 
+fi; od; 
+fi; od;
+fi; od; 
+fi; od; 
+fi; od;
+fi; od;
+fi; od;
+fi; od;
+fi; od;
+fi; od;
+fi; od;
+fi; od; 
+fi; od; 
+fi; od; 
+fi; od; od; od; od; od; od; od; 
+
+#od;
+#####ordering#########
+orders_list := [];
+for x in L do 
+    Add(orders_list,x[2]);
+    od;
+Ordered := Set(orders_list);
+    
+
+######markdown table#############
+PrintTo("markdown-table.md", " ");
+AppendTo("markdown-table.md", "|Order|Degree|Degree sequence |Minimal polynomial| Details|Existence|\n");
+AppendTo("markdown-table.md", "|:---|:---|:--------: |:---------:| :---:| :----:|\n");
+for n in Ordered do
+    for x in L do 
+        if x[2] = n then
+           AppendTo("markdown-table.md", StringFormatted("|{2}|{1}|{3}|{4}| [link]({5})|  |\n",x[1],x[2],x[3],x[4],x[5]));
+        fi;
+      od;
+  od;
+
+
+

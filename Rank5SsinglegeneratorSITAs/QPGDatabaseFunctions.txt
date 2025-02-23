@@ -1,0 +1,283 @@
+#########################################
+IsSITA:=function(b)
+local a,d,r,t,D,i,j,k,t1;
+
+r:=Length(b[1][1]);
+t:=true; 
+for i in [1..r] do 
+for j in [1..r] do for k in [1..r] do 
+if b[i][j][k]<0 or not(IsInt(b[i][j][k])) then t:=false; fi; 
+od; od; od; 
+
+if t=true then 
+a:=Algebra(Rationals,b); 
+d:=Basis(a,b);
+if d=fail then t:=false; else 
+t1:=true; 
+D:=[]; 
+for i in [1..r] do D[i]:=[]; for j in [1..r] do 
+D[i][j]:=Coefficients(d,d[i]*d[j]); od; 
+if not(TransposedMat(D[i])=d[i]) then t1:=false; fi; 
+od;
+t:=t1; 
+fi;
+fi;
+
+return t; 
+end;  
+#########################################
+# Remark: The next function only works for ranks 4, 5, or 6
+#########################################
+QPGArrayToTA:=function(L)
+local V,B1,k1,k2,k3,k4,k5,p112,p113,p114,p115,p123,p124,p125,p134,p135,p145,C,b0,b1,b2,b3,b4,b5,i,c2,c3,c4,c5,b;
+
+if Length(L[1])=3 then 
+k1:=L[1][1]; k2:=L[1][2]; k3:=L[1][3]; 
+p112:=L[2][1]; p113:=L[2][2]; p123:=L[2][3];
+
+C:=[[0,k1,0,0],[1,k1-1-p112*k2/k1-p113*k3/k1,p112*k2/k1,p113*k3/k1],
+[0,p112,k1-p112-p123*k3/k2,p123*k3/k2],[0,p113,p123,k1-p113-p123]];
+
+b0:=C^0; 
+b1:=C; 
+
+B1:=[(C^0)[1],(C^1)[1],(C^2)[1],(C^3)[1]]; 
+V:=VectorSpace(Rationals,B1); 
+B1:=Basis(V,B1); 
+
+c2:=Coefficients(B1,[0,0,k2,0]); 
+b2:=0*C^0; for i in [1..4] do b2:=b2+c2[i]*C^(i-1); od; 
+
+c3:=Coefficients(B1,[0,0,0,k3]); 
+b3:=0*C^0; for i in [1..4] do b3:=b3+c3[i]*C^(i-1); od; 
+
+b:=[b0,b1,b2,b3]; 
+fi; 
+
+if Length(L[1])=4 then 
+k1:=L[1][1]; k2:=L[1][2]; k3:=L[1][3]; k4:=L[1][4];
+p112:=L[2][1]; p113:=L[2][2]; p114:=L[2][3]; p123:=L[2][4]; p124:=L[2][5]; p134:=L[2][6]; 
+
+C:=[[0,k1,0,0,0],
+[1,k1-1-p112*k2/k1-p113*k3/k1-p114*k4/k1,p112*k2/k1,p113*k3/k1,p114*k4/k1],
+[0,p112,k1-p112-p123*k3/k2-p124*k4/k2,p123*k3/k2,p124*k4/k2],
+[0,p113,p123,k1-p113-p123-p134*k4/k2,p134*k4/k2],
+[0,p114,p124,p134,k1-p114-p124-p134]];
+
+b0:=C^0; 
+b1:=C; 
+
+B1:=[(C^0)[1],(C^1)[1],(C^2)[1],(C^3)[1],(C^4)[1]]; 
+V:=VectorSpace(Rationals,B1); 
+B1:=Basis(V,B1); 
+
+c2:=Coefficients(B1,[0,0,k2,0,0]); 
+b2:=0*C^0; for i in [1..5] do b2:=b2+c2[i]*C^(i-1); od; 
+
+c3:=Coefficients(B1,[0,0,0,k3,0]); 
+b3:=0*C^0; for i in [1..5] do b3:=b3+c3[i]*C^(i-1); od; 
+
+c4:=Coefficients(B1,[0,0,0,0,k4]); 
+b4:=0*C^0; for i in [1..5] do b4:=b4+c4[i]*C^(i-1); od; 
+
+b:=[b0,b1,b2,b3,b4]; 
+fi; 
+
+if Length(L[1])=5 then 
+k1:=L[1][1]; k2:=L[1][2]; k3:=L[1][3]; k4:=L[1][4]; k5:=L[1][5];
+p112:=L[2][1]; p113:=L[2][2]; p114:=L[2][3]; p115:=L[2][4]; 
+p123:=L[2][5]; p124:=L[2][6]; p125:=L[2][7]; 
+p134:=L[2][8]; p135:=L[2][9];
+p145:=L[2][10]; 
+
+C:=[[0,k1,0,0,0,0],
+[1,k1-1-p112*k2/k1-p113*k3/k1-p114*k4/k1-p115*k5/k1,p112*k2/k1,p113*k3/k1,p114*k4/k1,p115*k5/k1],
+[0,p112,k1-p112-p123*k3/k2-p124*k4/k2-p125*k5/k2,p123*k3/k2,p124*k4/k2,p125*k5/k2],
+[0,p113,p123,k1-p113-p123-p134*k4/k2-p135*k5/k3,p134*k4/k2,p135*k5/k3],
+[0,p114,p124,p134,k1-p114-p124-p134-p145*k5/k4,p145*k5/k4],
+[0,p115,p125,p135,p145,k1-p115-p125-p135-p145]];
+
+b0:=C^0; 
+b1:=C; 
+
+B1:=[(C^0)[1],(C^1)[1],(C^2)[1],(C^3)[1],(C^4)[1],(C^5)[1]]; 
+V:=VectorSpace(Rationals,B1); 
+B1:=Basis(V,B1); 
+
+c2:=Coefficients(B1,[0,0,k2,0,0,0]); 
+b2:=0*C^0; for i in [1..6] do b2:=b2+c2[i]*C^(i-1); od; 
+
+c3:=Coefficients(B1,[0,0,0,k3,0,0]); 
+b3:=0*C^0; for i in [1..6] do b3:=b3+c3[i]*C^(i-1); od; 
+
+c4:=Coefficients(B1,[0,0,0,0,k4,0]); 
+b4:=0*C^0; for i in [1..6] do b4:=b4+c4[i]*C^(i-1); od; 
+
+c5:=Coefficients(B1,[0,0,0,0,0,k5]); 
+b5:=0*C^0; for i in [1..6] do b5:=b5+c5[i]*C^(i-1); od; 
+
+b:=[b0,b1,b2,b3,b4,b5]; 
+fi; 
+
+return b; 
+end; 
+#########################################
+# Note: for the next function, generator must be b[2]
+#########################################
+OrthogonalPolynomialsFromSingleGeneratorSITA:=function(b)
+local B, i, V, Pol, c, p, x, j; 
+
+x:=Indeterminate(Rationals,"x"); 
+B:=[]; 
+for i in [1..Length(b)] do 
+  Add(B,(b[2]^(i-1))[1]); 
+od; 
+
+V:=VectorSpace(Rationals,B); 
+B:=Basis(V,B); 
+
+Pol:=[]; 
+for i in [1..Length(b)] do 
+c:=Coefficients(B,b[i][1]); 
+p:=0*x^0; 
+for j in [1..Length(c)] do 
+p:=p+c[j]*x^(j-1); 
+od; 
+Add(Pol,p); 
+od; 
+
+return Pol; 
+end; 
+################################################
+CharacterTableOfSingleGeneratorSITA:=function(b)
+local r,p,F,P,D,f,n;
+
+r:=Length(b[1][1]); 
+p:=MinimalPolynomial(b[2]); 
+
+F:=Factors(p); 
+if Length(F)=r then 
+P:=Eigenvectors(Rationals,b[2]);
+fi; 
+
+if Length(F)<r then 
+D:=1; 
+for f in F do if Degree(f)>1 then D:=D*Discriminant(f); fi; od; 
+for n in DivisorsInt(D) do 
+  if n>2 then 
+  F:=Factors(PolynomialRing(CF(n)),p); 
+  if Length(F)=r then 
+   P:=Eigenvectors(CF(n),b[2]);
+   break;
+  fi;
+  fi;
+od; 
+fi;
+
+return P; 
+end; 
+#################################
+ListOfEquivalentQPGArrays:=function(b)
+local r,k,i,j,L,G,g,p,b1,K,A;
+
+r:=Length(b); 
+k:=[]; 
+for i in [1..r] do 
+k[i]:=Sum(b[i][1]); 
+od;
+L:=[]; 
+
+G:=SymmetricGroup([3..r]);
+for g in G do 
+p:=PermutationMat(g,r);
+b1:=[];
+for i in [1..r] do 
+  b1[i]:=b[i^(g^-1)]^p;
+od; 
+K:=[]; 
+for i in [2..r] do K[i-1]:=Sum(b1[i][1]); od; 
+A:=[]; 
+for j in [2..r-1] do for i in [j+1..r] do Add(A,b1[2][i][j]); od; od;
+Add(L,[K,A]);
+od; 
+
+return L; 
+end; 
+###################################
+# The next function requires the rank to be 4, 5, or 6.
+###################################
+IsPpolynomialTA:=function(b)
+local L,t,i; 
+
+L:=ListOfEquivalentQPGArrays(b); 
+t:=false; 
+
+if Length(L[1][1])+1=4 then 
+for i in [1..Length(L)] do 
+  if L[i][2][2]=0 then t:=true; fi; 
+od; 
+fi;
+
+if Length(L[1][1])+1=5 then 
+for i in [1..Length(L)] do 
+  if L[i][2]{[2,3]}=[0,0] and L[i][2][5]=0 then t:=true; fi; 
+od; 
+fi; 
+
+if Length(L[1][1])+1=6 then 
+for i in [1..Length(L)] do 
+  if L[i][2]{[2..4]}=[0,0,0] and L[i][2]{[6,7]}=[0,0] and L[i][2][9]=0 then t:=true; fi; 
+od; 
+fi;
+ 
+return t; 
+end; 
+######################################
+IntersectionMatricesFromEigenmatrix:=function(Q)
+local r,Q1,D,j,i,L,A,C,A1,A2,A3,S; 
+
+r:=Length(Q);
+Q1:=TransposedMat(Q);
+D:=[];
+for j in [1..r] do D[j]:=DiagonalMat(Q1[j]); od; 
+
+L:=[]; 
+for i in [1..r] do L[i]:=[]; od;
+
+for i in [1..r] do 
+L[i]:=[]; 
+for j in [1..r] do 
+A:=ShallowCopy(Q1);
+C:=DiagonalOfMat(D[i]*D[j]); 
+Add(A,C); 
+A1:=TransposedMat(A);
+A2:=RREF(A1);
+A3:=TransposedMat(A2);
+S:=A3[r+1]; 
+Add(L[i],S); 
+od; 
+L[i]:=TransposedMat(L[i]); 
+od; 
+
+return L; 
+end; 
+###################################
+# Note: The next function requires b[2] to generate the SITA, and 
+# the eigenvalues to be cyclotomic.  It also requires the rank to 
+# be 4, 5, or 6.
+###################################
+
+IsQpolynomialTA:=function(b) 
+local n,i,P,Q,d,t;
+
+t:=false; 
+n:=0; 
+for i in [1..Length(b)] do n:=n+Sum(b[i][1]); od; 
+P:=CharacterTableOfSingleGeneratorSITA(b); 
+Q:=n*P^-1; 
+d:=IntersectionMatricesFromEigenmatrix(Q); 
+if IsPpolynomialTA(d) then t:=true; fi; 
+
+return t; 
+end; 
+  
