@@ -10,8 +10,7 @@ TA-xIM: table algebra that failed the integral multiplicity condition.
 TA-xR: table algebra that is not realizable by the classification or because it fails some other feasibility condition.
 
 O:  table algebra that passes the feasibility conditions and the realizability is still open.
-
-F: when the code tries to check if the given example is an association scheme or no, but it stops at some value > 0. 
+ 
 
 * For rank 4 database please see [https://roghayehmaleki.github.io/QPG-database/Rank4SsinglegeneratorSITAs/html-file.html](https://roghayehmaleki.github.io/QPG-database/Rank4SsinglegeneratorSITAs/html-file.html)
 
